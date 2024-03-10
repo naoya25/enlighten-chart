@@ -1,0 +1,78 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider          = "postgresql"
+  url               = env("DATABASE_URL")
+}
+
+model User {
+  id    Int     @id @default(autoincrement())
+  auth_id String @unique
+  email String  @unique
+  name  String?
+  objectives Objective[]
+  daily_quests DailyQuest[]
+}
+
+model Objective {
+  id Int @id @default(autoincrement())
+  title String
+  description String
+  deadline DateTime
+  is_achievement Boolean @default(false)
+  achievement_day DateTime?
+  created_at DateTime @default(now())
+  user User @relation(fields: [user_id], references: [id])
+  user_id Int
+  reviews Review[]
+  todos Todo[]
+}
+
+model Review {
+  id Int @id @default(autoincrement())
+  good String
+  more String
+  challenge String
+  day DateTime @default(now())
+  created_at DateTime @default(now())
+  objective Objective @relation(fields: [objective_id], references: [id])
+  objective_id Int
+}
+
+model Todo {
+  id Int @id @default(autoincrement())
+  description String
+  deadline DateTime @default(now())
+  is_achievement Boolean @default(false)
+  achievement_day DateTime?
+  created_at DateTime @default(now())
+  objective Objective @relation(fields: [objective_id], references: [id])
+  objective_id Int
+}
+
+model DailyQuest {
+  id Int @id @default(autoincrement())
+  title String
+  description String
+  day DateTime
+  is_achievement Boolean @default(false)
+  achievement_day DateTime?
+  created_at DateTime @default(now())
+  user User @relation(fields: [user_id], references: [id])
+  user_id Int
+  dailyreviews DailyReview[]
+}
+
+model DailyReview {
+  id Int @id @default(autoincrement())
+  good String
+  more String
+  challenge String
+  level Int
+  qol Int
+  created_at DateTime @default(now())
+  daily_quest DailyQuest @relation(fields: [daily_quest_id], references: [id], onDelete: Cascade)
+  daily_quest_id Int
+}
