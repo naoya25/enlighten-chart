@@ -7,9 +7,7 @@ import { format } from "date-fns";
 import React, { useEffect, useState } from "react";
 
 export const getDailyQuest = async (dailyquest_id: number) => {
-  const res = await fetch(`/api/daily_quest/${dailyquest_id}`, {
-    cache: "no-store", // ssr
-  });
+  const res = await fetch(`/api/daily_quest/${dailyquest_id}`);
   const data = await res.json();
   console.log(data);
   return data.dailyQuest;
