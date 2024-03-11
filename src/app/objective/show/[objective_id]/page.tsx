@@ -8,15 +8,6 @@ import { TodoType } from "@/types/todo";
 import { format } from "date-fns";
 import React, { useEffect, useState } from "react";
 
-export const getObjective = async (objective_id: number) => {
-  const res = await fetch(`/api/objective/${objective_id}`, {
-    cache: "no-store", // ssr
-  });
-  const data = await res.json();
-  console.log(data);
-  return data.objective;
-};
-
 // 詳細ページ
 const ObjectiveShowPage = ({
   params,
@@ -27,10 +18,20 @@ const ObjectiveShowPage = ({
   const [openReviewForm, setOpenReviewForm] = useState<boolean>(false);
   const [openTodoForm, setOpenTodoForm] = useState<boolean>(false);
 
+  const getObjective = async (objective_id: number) => {
+    const res = await fetch(`/api/objective/${objective_id}`, {
+      cache: "no-store", // ssr
+    });
+    const data = await res.json();
+    console.log(data);
+    return data.objective;
+  };
+
   const getObjectiveWithTodo = async () => {
     const objectiveData = await getObjective(params.objective_id);
     setObjective(objectiveData);
   };
+
   useEffect(() => {
     getObjectiveWithTodo();
   }, [params.objective_id]);
@@ -99,7 +100,7 @@ const ObjectiveShowPage = ({
             <p>good: {review.good}</p>
             <p>more: {review.more}</p>
             <p>try: {review.challenge}</p>
-            <p>{format(review.day, 'M/d hh:mm:ss')}</p>
+            <p>{format(review.day, "M/d hh:mm:ss")}</p>
           </div>
         ))}
       </div>
