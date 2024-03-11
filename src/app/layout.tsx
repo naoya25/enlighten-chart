@@ -17,7 +17,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="ja">
       <body
         className={`${noto.className} min-h-[100vh] relative pb-10 antialiased bg-gray-100`}
       >
