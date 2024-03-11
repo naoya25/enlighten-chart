@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
 
-export const prisma = new PrismaClient() as any;
-export async function doConnect() {
+const prisma = new PrismaClient() as any;
+async function doConnect() {
   try {
     await prisma.$connect();
   } catch (error) {
