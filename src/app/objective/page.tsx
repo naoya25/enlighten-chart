@@ -40,7 +40,9 @@ const AllObjectivePage = () => {
             <p>title: {objective.title}</p>
             <p>description: {objective.description}</p>
             <p>deadline: {new Date(objective.deadline).toDateString()}</p>
-            <p>user_id: {objective.user_id}</p>
+            <p>
+              <a href={`/objective/show/${objective.id}`}>詳細</a>
+            </p>
           </div>
         ))
       )}

@@ -16,13 +16,18 @@ const Header = () => {
             {session ? (
               <>
                 <li>
-                  <a href="/objective" className="hover:text-gray-300">
-                    AllObjectives
+                  <a href="/dailyquest/user" className="hover:text-gray-300">
+                    今日のタスク
+                  </a>
+                </li>
+                <li>
+                  <a href="/objective/add" className="hover:text-gray-300">
+                    目標追加
                   </a>
                 </li>
                 <li>
                   <a href="/objective/user" className="hover:text-gray-300">
-                    MyObjectives
+                    目標一覧
                   </a>
                 </li>
                 <li>
