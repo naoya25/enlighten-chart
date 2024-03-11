@@ -6,13 +6,6 @@ import { DailyReviewType } from "@/types/dailyReview";
 import { format } from "date-fns";
 import React, { useEffect, useState } from "react";
 
-export const getDailyQuest = async (dailyquest_id: number) => {
-  const res = await fetch(`/api/daily_quest/${dailyquest_id}`);
-  const data = await res.json();
-  console.log(data);
-  return data.dailyQuest;
-};
-
 // 詳細ページ
 const DailyQuestShowPage = ({
   params,
@@ -22,10 +15,20 @@ const DailyQuestShowPage = ({
   const [quest, setQuest] = useState<DailyQuestType | null>(null);
   const [openReviewForm, setOpenReviewForm] = useState<boolean>(false);
 
+  const getDailyQuest = async (dailyquest_id: number) => {
+    const res = await fetch(`/api/daily_quest/${dailyquest_id}`, {
+      cache: "no-store", // ssr
+    });
+    const data = await res.json();
+    console.log(data);
+    return data.dailyQuest;
+  };
+
   const getDailyQuestWithReview = async () => {
     const questData = await getDailyQuest(params.dailyquest_id);
     setQuest(questData);
   };
+
   useEffect(() => {
     getDailyQuestWithReview();
   }, [params.dailyquest_id]);
