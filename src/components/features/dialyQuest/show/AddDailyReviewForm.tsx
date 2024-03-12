@@ -23,6 +23,7 @@ const postReview = async ({
       "Content-Type": "application/json",
     },
   });
+  console.log({ good, more, challenge, level, qol, daily_quest_id });
   return (await res).json();
 };
 
@@ -41,15 +42,15 @@ const AddDailyReviewForm = ({
     good: string;
     more: string;
     challenge: string;
-    level: number;
-    qol: number;
+    level: string;
+    qol: string;
   }>({
     defaultValues: {
       good: "",
       more: "",
       challenge: "",
-      level: 3,
-      qol: 3,
+      level: "",
+      qol: "",
     },
   });
 
@@ -57,15 +58,15 @@ const AddDailyReviewForm = ({
     good: string;
     more: string;
     challenge: string;
-    level: number;
-    qol: number;
+    level: string;
+    qol: string;
   }> = async (formData) => {
     await postReview({
       good: formData.good,
       more: formData.more,
       challenge: formData.challenge,
-      level: formData.level,
-      qol: formData.qol,
+      level: parseInt(formData.level),
+      qol: parseInt(formData.qol),
       daily_quest_id,
     });
     onSubmit();
